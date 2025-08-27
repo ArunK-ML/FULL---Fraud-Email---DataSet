@@ -14,25 +14,25 @@ Data Souces Link : https://www.kaggle.com/datasets/advaithsrao/enron-fraud-email
  'Suspicious-Folders', 'Sender-Type', 'Unique-Mails-From-Sender',
  'Low-Comm', 'Contains-Reply-Forwards', 'Label']
 
-Key Columns (Important for Fraud Detection):
+#**Key Columns (Important for Fraud Detection)**:
 
 From / To / Cc / Bcc → Sender & recipients
 
 Subject / Body → Email content
 
-POI-Present → Whether a “Person of Interest” is involved (Fraud flag indicator)
+**POI-Present** → Whether a “Person of Interest” is involved (Fraud flag indicator)
 
-Suspicious-Folders → Flag if mail was in a suspicious folder
+**Suspicious-Folders** → Flag if mail was in a suspicious folder
 
-Sender-Type → Internal vs External sender
+**Sender-Type** → Internal vs External sender
 
-Unique-Mails-From-Sender → Count of unique mails from sender
+**Unique-Mails-From-Sender** → Count of unique mails from sender
 
-Low-Comm → Whether sender had low communication
+**Low-Comm** → Whether sender had low communication
 
-Contains-Reply-Forwards → Boolean if reply/forward present
+**Contains-Reply-Forwards** → Boolean if reply/forward present
 
-Label → Target variable (0 = Normal, 1 = Fraud-related) ✅
+**Label** → Target variable (0 = Normal, 1 = Fraud-related) ✅
 
 | From                                                                  | To                                                              | Subject                                | POI-Present | Suspicious-Folders | Sender-Type | Label |
 | --------------------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------- | ----------- | ------------------ | ----------- | ----- |
@@ -41,103 +41,103 @@ Label → Target variable (0 = Normal, 1 = Fraud-related) ✅
 | customer\_service\@footlocker                                         | [dfarmer@enron.com](mailto:dfarmer@enron.com)                   | Order Confirmation from Footlocker.com | FALSE       | FALSE              | External    | 1     |
 
 
-📂 Metadata Columns
+📂 **Metadata Columns**
 
-Folder-User
+**Folder-User**
 
 The user’s personal mailbox directory (e.g., maildir).
 
 Helps identify which Enron employee account the email belongs to.
 
-Folder-Name
+**Folder-Name**
 
 Specific folder in the mailbox (e.g., inbox, sent, or user’s custom folders).
 
 Useful for tracking whether fraud-related emails were stored in unusual places.
 
-Message-ID
+**Message-ID**
 
 Unique identifier for each email (like a fingerprint).
 
 Prevents duplicates and helps link chains of communication.
 
-Date
+**Date**
 
 Timestamp of when the email was sent.
 
 Patterns of fraud may cluster in certain time periods (e.g., around earnings reports).
 
-👤 Sender & Receiver Information
+👤 **Sender & Receiver Information**
 
-From
+**From**
 
 The actual sender’s email address.
 
 Important for detecting fraudulent external vs. internal sources.
 
-To
+**To**
 
 Primary recipient(s).
 
 Reveals communication networks (who talks to whom).
 
-Cc
+**Cc**
 
 Carbon copy recipients.
 
 Often used to hide others in the loop.
 
-Bcc
+**Bcc**
 
 Blind carbon copy recipients.
 
 Rarely used normally → suspicious if heavily present.
 
-X-From
+**X-From**
 
 Cleaned version of the sender’s name/address.
 
 Sometimes more readable than raw “From”.
 
-X-To
+**X-To**
 
 Cleaned version of recipient list.
 
 Helps avoid parsing issues in “To”.
 
-X-cc
+**X-cc**
 
 Cleaned version of Cc recipients.
 
 Might indicate hidden communication networks.
 
-X-bcc
+**X-bcc**
 
 Cleaned version of Bcc.
 
 Often extremely rare → anomalies matter.
 
-📧 Email Structure & Content
+📧 **Email Structure & Content**
 
-Subject
+**Subject**
 
 The subject line of the email.
 
 Can reveal fraud clues (e.g., “contract,” “deal,” “urgent”).
 
-Body
+**Body**
 
 Full text of the email.
 
 Richest source of fraud detection via NLP.
 
-Mime-Version
+**Mime-Version**
 
 Email format version (usually 1.0).
 
 More technical; not directly useful but can help detect unusual emails.
 
-Content-Type
+**Content-Type**
 
 Type of content (text/plain, text/html, etc.).
 
@@ -149,101 +149,101 @@ Encoding method (7bit, base64, etc.).
 
 Base64 might hide attachments or encrypted text.
 
-🗂️ System Information
+🗂️ **System Information**
 
-X-Folder
+**X-Folder**
 
 Path of the folder (e.g., /inbox/junk/).
 
 Suspicious folders can be flagged.
 
-X-Origin
+**X-Origin**
 
 Source account that generated the email.
 
 Sometimes different from “From,” which can indicate spoofing.
 
-X-FileName
+**X-FileName**
 
 Name of the email file saved locally.
 
 Metadata useful for reconstruction.
 
-📅 Meeting & Reply Info
+📅 **Meeting & Reply Info**
 
-Time
+**Time**
 
 Time extracted separately (sometimes without date).
 
 Can be used for analyzing communication hours.
 
-Attendees
+**Attendees**
 
 People included in meetings (if email contains meeting request).
 
 Fraud may involve small secret groups.
 
-Re
+**Re**
 
 Reply chain marker (Re:).
 
 Helps detect threads and if fraud-related communication is hidden in replies.
 
-🏢 Source & Tracking
+🏢 **Source & Tracking**
 
-Source
+**Source**
 
 Data source (here: “Enron Data”).
 
 Mostly constant.
 
-Mail-ID
+**Mail-ID**
 
 Another unique identifier (hash of email).
 
 For cross-checking.
 
-🚩 Fraud-Specific Features
+🚩 **Fraud-Specific Features**
 
-POI-Present
+**POI-Present**
 
 Flag if a Person of Interest (POI) was involved (TRUE/FALSE).
 
 Strong fraud indicator.
 
-Suspicious-Folders
+**Suspicious-Folders**
 
 TRUE if the email was stored in a suspicious folder.
 
 Helps detect deliberate hiding.
 
-Sender-Type
+**Sender-Type**
 
 Internal vs. External.
 
 External senders may be more suspicious.
 
-Unique-Mails-From-Sender
+**Unique-Mails-From-Sender**
 
 Count of how many unique mails this sender has sent.
 
 Very high or very low counts could be suspicious.
 
-Low-Comm
+**Low-Comm**
 
 TRUE if sender had low communication overall.
 
 Someone who rarely communicates but sends critical fraud emails is suspicious.
 
-Contains-Reply-Forwards
+**Contains-Reply-Forwards**
 
 TRUE if email contains “Re:” or “Fwd:”.
 
 Fraudsters may avoid forwards to reduce traceability.
 
-🎯 Target Column
+🎯 **Target Column**
 
-Label
+**Label**
 
 The ground-truth fraud label:
 
@@ -253,7 +253,7 @@ The ground-truth fraud label:
 
 This is the column you predict using ML models.
 
-✅ Summary:
+✅ **Summary**:
 
 Metadata columns (Folder-*, Message-ID, etc.) → Organizing emails.
 
